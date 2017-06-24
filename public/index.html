@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8"/>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      #MessageBox {
+        border: solid 1px black;
+        min-height: 250px;
+        width: 380px;
+        margin-top: 5px;
+        border-radius: 3px;
+        padding: 4px;
+      }
+
+      #AddMessage {
+        border: solid 1px black;
+        width: 175px;
+        padding: 4px 5px;
+        border-radius: 3px;
+      }
+
+      input[type=button]{
+        border: solid 1px black;
+        background: black;
+        border-radius: 3px;
+        padding: 4px 7px;
+        color: white;
+
+        transition: all 0.3s ease-in 0s;
+      }
+
+      input[type=button]:hover {
+        background: #333333;
+        color: #eeeeee;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <section>
+        <component id="MessagingComponent"></component>
+        <a data-event='#MessagingComponent/destroy'></a>
+      </section>
+    </main>
+
+    <template id="MessagingTemplate">
+      <h1>Promises, Generators, &amp; Observers</h1>
+      <h3>A set of tests using ES6 features.</h3>
+      <input id="AddMessage" type="text" placeholder="Type a new message..."/>
+      <input type="button" value="Add Message" data-source="#AddMessage" data-add-message/>
+      <input type="button" value="Next Message" data-target="#MessageBox" data-messenger/>
+      <p id="MessageQueue"></p>
+      <p id="MessageResets"></p>
+      <p id="MessageBox"></p>
+    </template>
+
+    <script src="/js/app.bundle.js"></script>
+  </body>
+</html>
