@@ -14,6 +14,8 @@ class Types {
   /* ##########################
     Get Type
   ########################## */
+  
+  /* eslint complexity: ["error", 11] */
   static asString(test){
     if(Types.isUndefined(test)) return 'undefined'
     else if(Types.isNull(test)) return 'null'
@@ -25,6 +27,7 @@ class Types {
     else if(Types.isObject(test)) return 'object'
     else if(Types.isFunction(test)) return 'function'
     else if(Types.isJQuery(test)) return 'jquery'
+    else return 'undefined'
   }
 
   /* ##########################
@@ -90,20 +93,24 @@ class Types {
     return true
   }
 
+  /* eslint complexity: ["error", 8] */
   static isEmptyObject(test, strict = false, depth = -1){
-    if(depth === 0 && strict) return false
-    else if(depth === 0) return true
-    else if(depth === -1) depth = Types.MAX_DEPTH
-    depth === 0 ? undefined : depth = depth - 1
+    if(depth === 0) 
+      return !strict
+    else if(depth === -1) {
+      depth = Types.MAX_DEPTH
+      if(depth === 0)
+        depth = depth - 1
 
-    for(let key in test) {
+      for(let key in test) {
         if(test.hasOwnProperty(key) && strict){
           return Types.isEmpty(test[key])
         } else if(test.hasOwnProperty(key)){
           return false
         }
+      }
+      return true
     }
-    return true
   }
 
   static isEmptyJQuery(test){

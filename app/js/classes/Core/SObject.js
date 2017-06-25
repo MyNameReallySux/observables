@@ -10,7 +10,7 @@ class SObject {
   ####################### */
 
   static GetObjectIterator() {
-    return function* lifeCycleEvents(obj) {
+    return function* (obj) {
       if (!Types.isEmpty(obj)) {
         for (let key of Object.keys(obj)) {
           yield [key, obj[key]];
