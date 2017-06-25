@@ -124,31 +124,33 @@ class Types {
   /* eslint complexity: ["error", 10] */
   static isEmpty(test, strict = true, depth = -1){
     const type = Types.asString(test)
+    let result = undefined
     switch (test) {
       case 'undefined':
       case 'null':
-        return true
-      break
+        result = true
+        break
       case 'boolean':
       case 'number':
       case 'symbol':
-        return false
-      break
+        result = false
+        break
       case 'string': 
-        return Types.isEmptyString(test, strict)
-      break
+        result = Types.isEmptyString(test, strict)
+        break
       case 'array': 
-        return Types.isEmptyArray(test, strict, depth)
-      break
+        result = Types.isEmptyArray(test, strict, depth)
+        break
       case 'object': 
-        return Types.isEmptyObject(test, strict, depth)
-      break
+        result = Types.isEmptyObject(test, strict, depth)
+        break
       case 'jquery': 
-        return Types.isEmptyJQuery(test)
-      break
+        result = Types.isEmptyJQuery(test)
+        break
       default: 
-        return Types.isEmptyByProperty(test)
+        result = Types.isEmptyByProperty(test)
     }
+    return result
   }
   static isEmptyByProperty(test){
     if(!test.hasOwnProperty("isEmpty")) {
