@@ -5,8 +5,9 @@
 import 'babel-polyfill'
 import $ from 'jquery'
 
-import EventEmitter from './classes/EventEmitter'
-import Component from './classes/Component'
+import EventEmitter from 'Classes/EventEmitter'
+import SObject from 'Classes/Core/SObject'
+import Component from 'Classes/Components/Component'
 
 /* ##########################
   Global Variables
@@ -75,21 +76,24 @@ class Messenger {
 ########################## */
 
 $(document).ready(function(){
-  initMessengerDemo()
+  // initMessengerDemo()
 
-  window.demos.messenger = new Component('#MessagingComponent', '#MessagingTemplate')
+  // window.demos.messenger = new Component('#MessagingComponent', '#MessagingTemplate')
 
-  EventEmitter._initStatic()
+  // EventEmitter._initStatic()
 
-  $('a[data-event]').each(function(){
-    const data = $(this).attr('data-event')
-    const [selector, label] = [data.split('/')]
-    const target = $(selector)
-    if(!Types.isEmptyJQuery(target)) {
-
-    }
-
-  })
+//  $('a[data-event]').each(function(){
+//    const data = $(this).attr('data-event')
+//    const [selector, label] = [data.split('/')]
+//    const target = $(selector)
+//    if(!Types.isEmptyJQuery(target)) {
+//
+//    }
+//
+//  })
+  
+  let test = new SObject();
+  window.test = test
 
 })
 

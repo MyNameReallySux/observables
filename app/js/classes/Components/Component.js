@@ -1,74 +1,21 @@
 import 'babel-polyfill'
 import $ from 'jquery'
 
-import Mixin from './Mixin'
-import Types from './Types'
-import {EventEmitter, EventEmitterMixin} from './EventEmitter'
+import SObject from 'Classes/Core/SObject'
+import LifeCycleObject from 'Classes/Core/LifeCycleObject'
+import Mixin from 'Classes/Mixin'
+import Types from 'Classes/Utils/Types'
+
+import LifeCycleMixin from 'Mixins/LifeCycleMixin'
+import EventEmitterMixin from 'Mixins/EventEmitterMixin'
 
 window.Types = Types
 window.$ = $
 
-class SObject {
-  constructor(){
-    this._createLifeCycle()
-  }
-  _createLifeCycle(){
-    if(!this.hasOwnProperty('events')) this.events = {}
-    this._lifeCycleEvents = [
-      'onCreate', 'onInit', 'willReceiveData', 'onReceiveData', 'willUpdate',
-      'onUpdate', 'onAttach', 'willRender', 'onRender', 'onDestroy',
-    ]
-    for(let eventName of this._lifeCycleEvents){
-      if(!this.events.hasOwnProperty(eventName)) this.events[eventName] = []
-      if(!this.hasOwnProperty(eventName)) this[eventName] = function(){}
-    }
-  }
-  destroy(){
-    this.emit('onDestroy')
-  }
-  onDestroy(){
-    console.log('being destroyed')
-    delete this
-  }
-}
-
-function ManageInstanceMixin(instance) {
-  const Class = instance.constructor
-  if(!Class.hasOwnProperty('instances')){
-    Class.instances = new Map()
-    Class.addInstance = (instance)=>{
-      const key = instance.options.selectors.el
-      const value = instance
-      if(Class.instances.has(key)){
-        throw new Error(`Object of selector ${key} already has an instance of ${instance.constructor.name} attached to it.`)
-      } else {
-        Class.instances.set(key, value)
-      }
-    }
-    Class.removeInstance = ()=>{
-
-    }
-  }
-  return {
-    name: "ManageInstanceMixin",
-    instance: instance,
-    onCreate(){
-      console.log(this)
-      Class.addInstance(this.instance)
-    },
-    onDestroy(){
-      Class.removeInstance(this.instance)
-    }
-  }
-}
-
-class Component extends SObject{
+class Component extends LifeCycleObject {
   constructor(...args){
-    super()
-    this.options = {}
+    super(...args)
 
-    this._setDefaults()
-    this._handleArgs(...args)
     const data = this._initData()
     const mixins = this._initMixins()
     this._bindEvents()
@@ -77,17 +24,22 @@ class Component extends SObject{
     this.render()
   }
 
-  _setDefaults(){
-    this.defaults = {
+  onCreate(){
+    console.log(`${this.constructor.name}: onCreate`)
+  }
+  
+  setDefaults(){
+    super.setDefaults()
+    this.options = Object.assign({}, {
       selector: "*[data-module]",
       template: undefined,
-      mixins: [
-        EventEmitterMixin, ManageInstanceMixin
-      ]
-    }
+      mixins: []
+    }, this.options);
   }
 
-  _handleArgs(...args){
+  handleData(...args){
+    super.handleData(args)
+    
     /* #######################
       Procedure
     ####################### */
@@ -105,6 +57,32 @@ class Component extends SObject{
     /* #######################
       Local Functions
     ####################### */
+    
+    function handleSelectorString(selector){
+      const options = { 
+        selector: selector,
+        selectors: {
+          el: selector
+        }
+      }
+      handleOptionsObject.apply(this, options)
+    }
+    
+    function handleOptionsObject(options){
+      if(!options.hasOwnProperty('selectors')        
+        && !options.selectors.hasOwnProperty('el')
+        && !options.hasOwnProperty('selector')){
+        options.selectors = this.defaults.selectors
+      } else if (!options.hasOwnProperty('selectors')
+                && !options.selectors.hasOwnProperty('el')
+                && options.hasOwnProperty('selector')){
+        options.selectors = this.defaults.selectors
+        options.selectors.el = this.defaults.selector
+      } else {
+        options.selectors = this.defaults.selectors
+      }
+      this.options = Object.assign({}, this.defaults, this.options)
+    }
 
     /* #######################
       Single Argument
@@ -298,33 +276,43 @@ class Component extends SObject{
   }
 
   _bindEvents(){
-    this.emit('onCreate')
-    this.onCreate()
+    const iterator = SObject.GetObjectIterator()
+    
+    for(let [event, methods] of iterator(this._lifeCycleEvents)){      
+      if(!Types.isArray(methods)) methods = [methods];
+      
+      for(let method of methods){
+        this.addListener(event, ()=>{
+          console.log(`${this.constructor.name}: ${method} running.`)
 
-    for(let label of this._lifeCycleEvents){
-      this.addListener(label, ()=>{
-        console.log(`${this.constructor.name}: ${label} event emitted.`)
-        for(let mixin of Object.entries(this.mixins)){
-          if(mixin.hasOwnProperty(label)) mixin[label]()
-        }
-        this[label]
-      })
+          for(let mixin of iterator(this.mixins)){
+            if(mixin.hasOwnProperty(event)) {
+              mixin[event]
+            }
+          }
+
+          this[method]()
+        })
+      }
     }
-
-    this.emit('onInit')
   }
 
   _initMixins(){
-    this.mixins = {}
     if(!this.options.hasOwnProperty('mixins'))
       this.options.mixins = this.defaults.mixins || {}
 
     const mixins = this.options.mixins
-    for(let mixin of mixins){
-      let instance = mixin(this)
-      instance.onCreate(this)
-      this.mixins[instance.name] = instance
-    }
+    
+//    this.mixins = {}
+//    if(!this.options.hasOwnProperty('mixins'))
+//      this.options.mixins = this.defaults.mixins || {}
+//
+//    const mixins = this.options.mixins
+//    for(let mixin of mixins){
+//      let instance = mixin(this)
+//      instance.onCreate(this)
+//      this.mixins[instance.name] = instance
+//    }
   }
 
   _initData(){

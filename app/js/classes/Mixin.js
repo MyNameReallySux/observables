@@ -1,4 +1,4 @@
-import Types from './Types'
+import Types from 'Classes/Utils/Types'
 
 function Mixin(...bases){
   return extendClasses(bases);

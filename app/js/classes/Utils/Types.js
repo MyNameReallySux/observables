@@ -9,6 +9,7 @@ class Types {
     this.STRING = "string"
     this.SYMBOL = "symbol"
     this.UNDEFINED = "undefined"
+    this.FUNCTION = "function"
   }
   /* ##########################
     Get Type
@@ -22,6 +23,7 @@ class Types {
     else if(Types.isSymbol(test)) return 'symbol'
     else if(Types.isArray(test)) return 'array'
     else if(Types.isObject(test)) return 'object'
+    else if(Types.isFunction(test)) return 'function'
     else if(Types.isJQuery(test)) return 'jquery'
   }
 
@@ -30,18 +32,18 @@ class Types {
   ########################## */
   static isBoolean(test) { return typeof test === "boolean" }
   static isNumber(test)  {
-    return typeof test === "number" && test != NaN
+    return typeof test === "number" && test !== NaN
   }
   static isString(test)  { return typeof test === "string"  }
   static isSymbol(test)  { return typeof test === "symbol"  }
 
   static isArray(test) { return Array.isArray(test) }
-  static isFunction(test) { return typeof obj === 'function' }
+  static isFunction(test) { return typeof test === 'function' }
   static isObject(test) {
     return test === null ? false : test.constructor.toString().contains("Object")
   }
 
-  static isUndefined(test) { return typeof test == "undefined" }
+  static isUndefined(test) { return typeof test === "undefined" }
   static isNull(test) { return test === null }
 
   static isJQuery(test) {
@@ -49,12 +51,12 @@ class Types {
     try {
       jq = jQuery
     } catch (err){
-      if(err.name == "ReferenceError") {}
+      if(err.name === "ReferenceError") {}
     }
     try {
       jq = $
     } catch (err){
-      if(err.name == "ReferenceError") {}
+      if(err.name === "ReferenceError") {}
     }
 
     return test instanceof jq
@@ -76,8 +78,8 @@ class Types {
   }
 
   static isEmptyArray(test, strict = false, depth = -1){
-    if(depth == 0) return test.length <= 0
-    else if(depth == -1) depth = Types.MAX_DEPTH
+    if(depth === 0) return test.length <= 0
+    else if(depth === -1) depth = Types.MAX_DEPTH
     depth = depth - 1
 
     if(test.length > 0 && strict){
@@ -89,10 +91,10 @@ class Types {
   }
 
   static isEmptyObject(test, strict = false, depth = -1){
-    if(depth == 0 && strict) return false
-    else if(depth == 0) return true
-    else if(depth == -1) depth = Types.MAX_DEPTH
-    depth == 0 ? undefined : depth = depth - 1
+    if(depth === 0 && strict) return false
+    else if(depth === 0) return true
+    else if(depth === -1) depth = Types.MAX_DEPTH
+    depth === 0 ? undefined : depth = depth - 1
 
     for(let key in test) {
         if(test.hasOwnProperty(key) && strict){
@@ -105,7 +107,7 @@ class Types {
   }
 
   static isEmptyJQuery(test){
-    return Types.isNumber(test.length) && test.length == 0
+    return Types.isNumber(test.length) && test.length === 0
   }
 
   static isEmpty(test, strict = true, depth = -1){

@@ -80,7 +80,13 @@ const config = {
 			//{ from: "./dist/js/radiance.jquery.js", to: "../demo/public/js/radiance.jquery.js"},
 			{ from: "./dist/js/app.bundle.js", to: "../public/js/app.bundle.js"}
 		])
-  ]
+  ],
+  resolve: {
+      alias: {
+        Classes: path.resolve('./app/js/classes'),
+        Mixins: path.resolve('./app/js/mixins'),
+      }
+  },
 }
 
 module.exports = config
