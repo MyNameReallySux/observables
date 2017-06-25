@@ -35,7 +35,7 @@ class Types {
   ########################## */
   static isBoolean(test) { return typeof test === "boolean" }
   static isNumber(test)  {
-    return typeof test === "number" && test !== NaN
+    return typeof test === "number" && test !== isNaN(test)
   }
   static isString(test)  { return typeof test === "string"  }
   static isSymbol(test)  { return typeof test === "symbol"  }
@@ -54,12 +54,16 @@ class Types {
     try {
       jq = jQuery
     } catch (err){
-      if(err.name === "ReferenceError") {}
+      if(err.name === "ReferenceError") {
+        console.warn('jQuery is not defined.')
+      }
     }
     try {
       jq = $
     } catch (err){
-      if(err.name === "ReferenceError") {}
+      if(err.name === "ReferenceError") {
+        console.warn('jQuery ($) is not defined.')
+      }
     }
 
     return test instanceof jq
@@ -117,25 +121,26 @@ class Types {
     return Types.isNumber(test.length) && test.length === 0
   }
 
+  /* eslint complexity: ["error", 10] */
   static isEmpty(test, strict = true, depth = -1){
     switch (Types.asString(test)) {
       case 'undefined':
       case 'null':
         return true
-      break
+        break
       case 'boolean':
       case 'number':
       case 'symbol':
         return false
-      break
+        break
       case 'string': return Types.isEmptyString(test, strict)
-      break
+        break
       case 'array': return Types.isEmptyArray(test, strict, depth)
-      break
+        break
       case 'object': return Types.isEmptyObject(test, strict, depth)
-      break
+        break
       case 'jquery': return Types.isEmptyJQuery(test)
-      break
+        break
       default: return Types.isEmptyByProperty(test)
     }
   }
