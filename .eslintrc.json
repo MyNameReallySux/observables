@@ -8,12 +8,12 @@
         "sourceType": "module"
     },
     "rules": {
-      "array-bracket-newline" : "off",
-      "for-direction" : "off",
-      "no-buffer-constructor" : "off",
-      "padding-line-between-statements" : "off",
-      "semi-style" : "off",
-      "switch-colon-spacing" : "off",
+        "array-bracket-newline" : ["off"],
+        "for-direction" : ["off"],
+        "no-buffer-constructor" : ["off"],
+        "padding-line-between-statements" : ["off"],
+        "semi-style" : ["off"],
+        "switch-colon-spacing" : ["off"],
       
       
         "accessor-pairs": "error",
