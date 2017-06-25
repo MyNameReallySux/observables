@@ -57,6 +57,11 @@ const config = {
   },
   module: {
     loaders: [{
+      enforce: 'pre',
+      test: /\.js$/,
+      exclude: [paths.node_modules],
+      loader: 'eslint-loader'
+    }, {
       test: /\.js$/,
       exclude: [paths.node_modules],
       loader: 'babel-loader'

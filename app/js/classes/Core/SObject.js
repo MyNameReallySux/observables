@@ -107,7 +107,7 @@ class SObject {
     ####################### */
 
     function handleOptionsObject(options) {
-      this.options = Object.assign({}, this.defaults, this.options)
+      this.options = Object.assign({}, this.defaults, options)
     }
 
     function handleDefaultCase() {
@@ -135,12 +135,6 @@ class SObject {
     switch (data.length) {
       case 1:
         handleSingleArg.apply(this, [data[0]])
-        break
-      case 2:
-        handleTwoArgs.apply(this, [data[0], data[1]])
-        break
-      case 3:
-        handleThreeArgs.apply(this, [data[0], data[1], data[2]])
         break
       default:
         handleDefaultCase.apply(this, ...data)

@@ -51,20 +51,13 @@ class Types {
 
   static isJQuery(test) {
     let jq = ""
-    try {
+    /* eslint-disable */
+    if(typeof jQuery !== 'undefined'){
       jq = jQuery
-    } catch (err){
-      if(err.name === "ReferenceError") {
-        console.warn('jQuery is not defined.')
-      }
-    }
-    try {
+    } else if(typeof $ !== 'undefined') {
       jq = $
-    } catch (err){
-      if(err.name === "ReferenceError") {
-        console.warn('jQuery ($) is not defined.')
-      }
     }
+    /* eslint-enable */
 
     return test instanceof jq
   }
@@ -121,11 +114,12 @@ class Types {
     return Types.isNumber(test.length) && test.length === 0
   }
 
-  /* eslint complexity: ["error", 10] */
+  /* eslint complexity: ["error", 11] */
   static isEmpty(test, strict = true, depth = -1){
     const type = Types.asString(test)
-    let result = undefined
-    switch (test) {
+    let result
+    
+    switch (type) {
       case 'undefined':
       case 'null':
         result = true
