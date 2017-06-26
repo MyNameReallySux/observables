@@ -1,3 +1,5 @@
+import Types from 'Classes/Utils/Types'
+
 function EventEmitterMixin(instance){
   return {
     name: "EventEmitterMixin",

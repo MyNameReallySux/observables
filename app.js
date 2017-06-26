@@ -1,5 +1,4 @@
 // Node Packages
-const path = require('path')
 
 // Installed Packages
 const express = require('express')

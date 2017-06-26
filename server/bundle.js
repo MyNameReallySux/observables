@@ -23,7 +23,7 @@ module.exports = ()=>{
   })
 
   const bundler = new webpack_dev_server(compiler, {
-    publicPath: '/build/'
+    publicPath: '/build/',
     hot: true,
     quiet: false,
     noInfo: true,

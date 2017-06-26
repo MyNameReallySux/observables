@@ -15,7 +15,7 @@ module.exports = function(app, isProd){
     }
 
     proxy.on('error', function(err){
-      console.log('Could not connect to proxy, please try again...')
+      console.err('Could not connect to proxy, please try again...', err)
     })
   }
 }

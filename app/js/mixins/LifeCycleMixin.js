@@ -19,7 +19,7 @@ function LifeCycleMixin(instance){
       if(!instance.hasOwnProperty('events')) instance.events = {}
 
       const iterator = SObject.GetObjectIterator();
-      for(let [event, methods] of iterator(instance._lifeCycleEvents)){
+      for(let [_, methods] of iterator(instance._lifeCycleEvents)){
         if(!Types.isArray(methods)) methods = [methods];
         for(let method of methods){
           instance[method] = function(){};
