@@ -27,6 +27,7 @@
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-es2015-native-generators": "^6.6.0",
     "eslint": "^4.1.0",
+    "mocha": "^3.4.2",
     "webpack-dev-server": "^2.4.5"
   },
   "dependencies": {

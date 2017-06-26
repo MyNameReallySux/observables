@@ -1,1 +1,4 @@
 language: javascript
+scripts:
+  - webpack
+  
