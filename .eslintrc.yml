@@ -171,7 +171,7 @@ rules:
   no-unused-expressions: 'off'
   no-unused-vars: 
     - error
-    - varsIgnorePattern: ' _'
+    - varsIgnorePattern: '[ (\[,.]?_[ )\],.]?[^a-zA-Z0-9]'
   no-use-before-define: 'off'
   no-useless-call: error
   no-useless-computed-key: error
