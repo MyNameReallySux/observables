@@ -66,7 +66,7 @@ const config = {
       Classes: path.resolve('./app/js/classes'),
       Mixins: path.resolve('./app/js/mixins')
     }
-  },
+  }
 }
 
 module.exports = config

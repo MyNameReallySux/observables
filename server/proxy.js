@@ -1,3 +1,5 @@
+/*eslint global-require: "error"*/
+
 const HttpProxy = require('http-proxy')
 const proxy = HttpProxy.createProxyServer()
 
@@ -17,5 +19,7 @@ module.exports = function(app, isProd){
     proxy.on('error', function(err){
       console.err('Could not connect to proxy, please try again...', err)
     })
+    
+    next()
   }
 }

@@ -1,28 +1,26 @@
 const path = require('path');
-const fs = require('fs');
 
 const webpack = require('webpack')
-const webpack_dev_server = require('webpack-dev-server')
+const webpackDevServer = require('webpack-dev-server')
 const config = require('../webpack.config.js')
 
 const env = require('../config/environment')
 const paths = env.paths
-const main_path = paths.main
 
 module.exports = ()=>{
-  let bundle_start = undefined
+  let bundleStart
   const compiler = webpack(config)
 
   compiler.plugin('compile', ()=>{
     console.log('Bundling...')
-    bundle_start = Date.now()
+    bundleStart = Date.now()
   })
 
   compiler.plugin('done', ()=>{
-    console.log('Bundled in ' + (Date.now() - bundle_start) + 'ms!')
+    console.log(`Bundled in '${Date.now() - bundleStart}'ms!`)
   })
 
-  const bundler = new webpack_dev_server(compiler, {
+  const bundler = new webpackDevServer(compiler, {
     publicPath: '/build/',
     hot: true,
     quiet: false,
