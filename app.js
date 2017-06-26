@@ -2,7 +2,7 @@
 const path = require('path')
 
 // Installed Packages
-const express = require('express') // yarn add express
+const express = require('express')
 
 // Local Packages
 const env = require('./config')
