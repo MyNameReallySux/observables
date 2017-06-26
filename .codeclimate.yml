@@ -19,6 +19,8 @@ engines:
         enabled: false
       switch-colon-spacing:
         enabled: false
+      spaced-comment:
+        enabled: false
   fixme:
     enabled: true
 ratings:
