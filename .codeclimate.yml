@@ -6,18 +6,19 @@ engines:
       - javascript
   eslint:
     enabled: true
-    checks: array-bracket-newline:
-      enabled: false
-    checks: for-direction:
-      enabled: false
-    checks: no-buffer-constructor:
-      enabled: false
-    checks: padding-line-between-statements:
-      enabled: false
-    checks: semi-style:
-      enabled: false
-    checks: switch-colon-spacing:
-      enabled: false
+    checks: 
+      array-bracket-newline:
+        enabled: false
+      for-direction:
+        enabled: false
+      no-buffer-constructor:
+        enabled: false
+      padding-line-between-statements:
+        enabled: false
+      semi-style:
+        enabled: false
+      switch-colon-spacing:
+        enabled: false
   fixme:
     enabled: true
 ratings:
