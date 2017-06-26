@@ -1,7 +1,6 @@
 import SObject from 'Classes/Core/SObject'
 import Types from 'Classes/Utils/Types'
 
-
 function LifeCycleMixin(instance){
   if(!instance.hasOwnProperty('onCreate')) instance.onCreate = function(){ console.log('creating') }
 
