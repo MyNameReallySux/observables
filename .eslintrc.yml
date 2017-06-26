@@ -172,6 +172,7 @@ rules:
   no-unused-vars: 
     - error
     - varsIgnorePattern: '[ (\[,.]?_[ )\],.]?[^a-zA-Z0-9]'
+    - ignoreRestSiblings: true
   no-use-before-define: 'off'
   no-useless-call: error
   no-useless-computed-key: error
