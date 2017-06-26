@@ -33,4 +33,4 @@ ratings:
 exclude_paths:
 - config/
 - dist/
-- **/unused/**/*
+- unused/**/*
