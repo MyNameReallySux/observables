@@ -172,6 +172,8 @@ rules:
   no-unused-vars: 
     - error
     - options:
+      - vars: all
+      - args: after-used
       - varsIgnorePattern: '[ (\[,.]?_[ )\],.]?[^a-zA-Z0-9]'
       - ignoreRestSiblings: true
   no-use-before-define: 'off'
