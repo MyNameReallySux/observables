@@ -5,5 +5,6 @@ before_script:
   - npm install
   - npm install -g webpack
 script:
+  - mocha
   - webpack
   
