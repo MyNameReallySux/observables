@@ -174,7 +174,7 @@ rules:
     - options:
       - vars: all
       - args: after-used
-      - varsIgnorePattern: '[ (\[,.]?_[ )\],.]?[^a-zA-Z0-9]'
+      - varsIgnorePattern: '[ (\[,.]?_[ )\],.]?[^a-zA-Z0-9-_]|[^a-zA-Z0-9-_]describe[^a-zA-Z0-9_-]?|[^a-zA-Z0-9_-]it[^a-zA-Z0-9_-]'
       - ignoreRestSiblings: true
   no-use-before-define: 'off'
   no-useless-call: error

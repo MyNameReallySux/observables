@@ -21,6 +21,8 @@ engines:
         enabled: false
       spaced-comment:
         enabled: false
+      object-curly-spacing:
+        enabled: false
   fixme:
     enabled: true
 ratings:
