@@ -170,12 +170,12 @@ rules:
   no-unneeded-ternary: error
   no-unused-expressions: 'off'
   no-unused-vars: 
-    - error
-    - options:
-      - vars: all
-      - args: after-used
-      - varsIgnorePattern: '[ (\[,.]?_[ )\],.]?[^a-zA-Z0-9-_]|[^a-zA-Z0-9-_]describe[^a-zA-Z0-9_-]?|[^a-zA-Z0-9_-]it[^a-zA-Z0-9_-]'
-      - ignoreRestSiblings: true
+    - off
+#    - options:
+#      - vars: all
+#      - args: after-used
+#      - varsIgnorePattern: '[ (\[,.]?_[ )\],.]?[^a-zA-Z0-9-_]|describe|it'
+#      - ignoreRestSiblings: true
   no-use-before-define: 'off'
   no-useless-call: error
   no-useless-computed-key: error

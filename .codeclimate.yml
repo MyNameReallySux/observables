@@ -23,6 +23,8 @@ engines:
         enabled: false
       object-curly-spacing:
         enabled: false
+      func-style:
+        enabled: false
   fixme:
     enabled: true
 ratings:

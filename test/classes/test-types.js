@@ -207,6 +207,7 @@ describe('Types', function(){
       let result = Types.isString(test)
       assert.equal(result, true)
       done()
+      
     })
     
     it("Should return 'false' when anything else is passed in", function(done){
