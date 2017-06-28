@@ -1,4 +1,5 @@
 {
   "presets": ["env"],
-  "plugins": ["transform-regenerator"]
+  "plugins": ["transform-regenerator"],
+  "retainLines": true
 }

@@ -1,3 +1,6 @@
+const jQuery = require('jquery')
+const $ = jQuery
+
 String.prototype.contains = function(test){
   return this.indexOf(test) > 0
 }
@@ -24,9 +27,9 @@ class Types {
     else if(Types.isString(test)) return 'string'
     else if(Types.isSymbol(test)) return 'symbol'
     else if(Types.isArray(test)) return 'array'
-    else if(Types.isObject(test)) return 'object'
-    else if(Types.isFunction(test)) return 'function'
-    else if(Types.isJQuery(test)) return 'jquery'
+    else if(Types.isObject(test)) {
+      return Types.isJQuery(test) ? 'jquery' : 'object'
+    } else if(Types.isFunction(test)) return 'function'
     else return 'undefined'
   }
 
@@ -43,23 +46,14 @@ class Types {
   static isArray(test) { return Array.isArray(test) }
   static isFunction(test) { return typeof test === 'function' }
   static isObject(test) {
-    return test === null ? false : test.constructor.toString().contains("Object")
+    return test === null ? false : test.constructor.toString().contains("Object") || typeof test == 'object'
   }
 
   static isUndefined(test) { return typeof test === "undefined" }
   static isNull(test) { return test === null }
 
   static isJQuery(test) {
-    let jq = ""
-    /* eslint-disable */
-    if(typeof jQuery !== 'undefined'){
-      jq = jQuery
-    } else if(typeof $ !== 'undefined') {
-      jq = $
-    }
-    /* eslint-enable */
-
-    return test instanceof jq
+    return Types.isObject(test) && typeof jQuery != undefined ? test instanceof $ : false
   }
 
   /* ##########################
@@ -155,11 +149,5 @@ class Types {
 }
 
 Types.MAX_DEPTH = 21
-
-window.obj1 = {
-  first: null,
-  second: "",
-  third: []
-}
 
 export default Types
