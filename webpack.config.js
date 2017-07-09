@@ -23,9 +23,9 @@ const config = {
     overlay: true,
     compress: true,
     port: 4000,
-    contentBase: path.resolve(__dirname, 'public')
-
-
+	publicPath: paths.public,
+    contentBase: paths.public,
+	openPage: '',
   },
   output: {
     path: paths.build,
