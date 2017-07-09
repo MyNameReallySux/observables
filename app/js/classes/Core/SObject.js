@@ -1,4 +1,4 @@
-import Types from 'Classes/Utils/Types'
+import Types from 'type-utils'
 
 class SObject {
   constructor(...args) {
