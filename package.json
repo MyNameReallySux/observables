@@ -42,6 +42,6 @@
     "babel-polyfill": "^6.23.0",
     "express": "^4.15.3",
     "jquery": "^3.2.1",
-    "type-utils": "0.0.3"
+    "type-utils": "latest"
   }
 }
