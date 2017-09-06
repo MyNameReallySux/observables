@@ -1,4 +1,4 @@
-const Types = require('type-utils').default
+const TypeUtils = require('@beautiful-code/type-utils').TypeUtils
 
 class SObject {
 	constructor(...args) {
@@ -11,7 +11,7 @@ class SObject {
 
 	static GetObjectIterator() {
 		return function* (obj) {
-			if (!Types.isEmpty(obj)) {
+			if (!TypeUtils.isEmpty(obj)) {
 				for (let key of Object.keys(obj)) {
 					yield [key, obj[key]];
 				}
@@ -29,12 +29,12 @@ class SObject {
 		let data = {}
 		this.emit('before_data', data)
 
-		if (!Types.isEmpty(args)) {
+		if (!TypeUtils.isEmpty(args)) {
 			let data = this.beforeData(...args)
-			if (Types.isUndefined(data)) throw new Error(`Data passed into ${this.constructor.name}'s beforeData function must be returned at end of function.`)
+			if (TypeUtils.isUndefined(data)) throw new Error(`Data passed into ${this.constructor.name}'s beforeData function must be returned at end of function.`)
 
 			data = this.afterData(...data)
-			if (Types.isUndefined(data)) throw new Error(`Data passed into ${this.constructor.name}'s afterData function must be returned at end of function.`)
+			if (TypeUtils.isUndefined(data)) throw new Error(`Data passed into ${this.constructor.name}'s afterData function must be returned at end of function.`)
 
 			this.options = data
 		}
@@ -61,7 +61,7 @@ class SObject {
 		const iterator = SObject.GetObjectIterator()
 
 		for (let [event, methods] of iterator(this.lifeCycleEvents)) {
-			if (!Types.isArray(methods)) methods = [methods];
+			if (!TypeUtils.isArray(methods)) methods = [methods];
 
 			for (let method of methods) {
 				this.addListener(event, () => {
@@ -114,7 +114,7 @@ class SObject {
 		}
 
 		function handleSingleArg(arg) {
-			switch (Types.asString(arg)) {
+			switch (TypeUtils.asString(arg)) {
 				case 'object':
 					{
 						handleOptionsObject.apply(this, arg)
@@ -122,7 +122,7 @@ class SObject {
 					break
 				default:
 					{
-						throw new Error(`Single argument passed into '${this.constructor.name}', is not a valid type (object). Found ${Types.asString(arg)}.`)
+						throw new Error(`Single argument passed into '${this.constructor.name}', is not a valid type (object). Found ${TypeUtils.asString(arg)}.`)
 					}
 			}
 		}
@@ -161,7 +161,7 @@ class SObject {
 
 		if (listeners && listeners.length) {
 			index = listeners.reduce((i, listener, index) => {
-				return Types.isFunction(listener) && listener === callback ? i = index : i
+				return TypeUtils.isFunction(listener) && listener === callback ? i = index : i
 			}, -1)
 
 			if (index > -1) {
@@ -178,7 +178,7 @@ class SObject {
 		let listeners = this.listeners.get(label)
 		if (listeners && listeners.length) {
 			listeners.forEach((listener) => {
-				Types.isFunction(listener) ? listener.apply(this.context, ...args) : undefined
+				TypeUtils.isFunction(listener) ? listener.apply(this.context, ...args) : undefined
 			})
 			return true
 		}

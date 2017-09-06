@@ -1,6 +1,8 @@
 const assert = require('assert')
-const Types = require('type-utils').default
+const TypeUtils = require('@beautiful-code/type-utils').TypeUtils
 const SObject = require('../../../app/js/classes/Core/SObject')
+
+const polyfill = require('babel-polyfill')
 
 const methodExists = function(instance, method){
 	return Object.getOwnPropertyNames(Object.getPrototypeOf(instance)).indexOf(method) > -1
